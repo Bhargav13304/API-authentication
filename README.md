@@ -1,25 +1,27 @@
 # 🔐 API Authentication - Secure Login App
 
-**API Authentication** is a Node.js-based backend project implementing authentication logic using Express.js. It supports user login via hardcoded credentials and serves secure views using EJS templates. This is ideal for understanding basic backend authentication flow without database integration.
+**API Authentication** is a Node.js-based backend project that implements authentication logic using Express.js and integrates a PostgreSQL database to validate user credentials. It renders login forms with EJS templates and processes login requests securely. This app is perfect for understanding backend auth logic with a real database connection.
 
 ---
 
 ### 💡 Technologies Used, Applications & Advantages
 
-- **Node.js** – Backend runtime for scalable JavaScript applications.
-- **Express.js** – Routing and server management made easy.
-- **EJS (Embedded JavaScript Templates)** – Dynamic rendering of HTML based on logic.
-- **Body-parser** – Parses incoming form data from POST requests.
+- **Node.js** – JavaScript runtime for scalable backend development.
+- **Express.js** – Minimalist web framework for handling routes and requests.
+- **EJS (Embedded JavaScript Templates)** – Server-side HTML rendering.
+- **Body-parser** – Parses incoming request bodies.
+- **PostgreSQL** – SQL database used to store and validate user credentials.
+- **pg (node-postgres)** – PostgreSQL client for Node.js.
 
 **Applications:**
-- Authentication flow prototype
-- Learning user login and session validation
-- Lightweight credential-based login system
+- Secure login systems with real database support
+- Learning full-stack authentication workflow
+- Lightweight starter backend for auth-enabled apps
 
 **Advantages:**
-- Extremely simple for quick learning
-- No external DB dependencies
-- Clean login routing with form handling
+- Integrates real-world login validation with PostgreSQL
+- Minimalistic yet extendable
+- Teaches basic data handling, querying, and secure rendering
 
 ---
 
@@ -32,12 +34,43 @@ cd API-authentication
 
 # Install dependencies
 npm install
+```
 
-# Run the server
+> Make sure PostgreSQL is installed and running.
+
+1. **Set up PostgreSQL user table:**
+   - Connect to your PostgreSQL client (e.g., `psql`, DBeaver, pgAdmin).
+   - Create a database (e.g., `authdb`) and a `users` table:
+
+   ```sql
+   CREATE TABLE users (
+     username VARCHAR(255),
+     password VARCHAR(255)
+   );
+
+   INSERT INTO users (username, password) VALUES ('admin', 'admin123');
+   ```
+
+2. **Configure database connection:**
+   - Update your `solution.js` with your PostgreSQL credentials:
+
+   ```js
+   const client = new Client({
+     user: 'your_username',
+     host: 'localhost',
+     database: 'authdb',
+     password: 'your_password',
+     port: 5432
+   });
+   ```
+
+3. **Run the server:**
+
+```bash
 node solution.js
 ```
 
-Open your browser and navigate to `http://localhost:3000` to access the login page.
+> Navigate to `http://localhost:3000` to use the login form.
 
 ---
 
@@ -47,10 +80,10 @@ Open your browser and navigate to `http://localhost:3000` to access the login pa
 API-authentication/
 ├── views/
 │   ├── index.ejs          # Login form UI
-│   └── secret.ejs         # Protected page shown after successful login
-├── solution.js            # Express server and login logic
-├── package.json           # Project metadata and dependencies
-└── README.md              # Documentation
+│   └── secret.ejs         # Protected page after successful login
+├── solution.js            # Main Express app with PostgreSQL connection
+├── package.json           # Dependencies
+└── README.md              # Project documentation
 ```
 
 ---
